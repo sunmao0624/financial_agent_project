@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  financial-agent:
+    build: .
+    # 关键配置：让容器能够访问宿主机上的 Ollama 服务
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      # 在代码里你可以读取这个环境变量来动态设置 Ollama 地址
+      - OLLAMA_BASE_URL=http://host.docker.internal:11434
