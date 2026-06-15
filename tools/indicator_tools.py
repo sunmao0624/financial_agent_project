@@ -2,18 +2,17 @@ import akshare as ak
 import pandas as pd
 from crewai.tools import tool
 
+from crewai.tools import tool
+from .data_router import fetch_stock_data_robust
+
 
 @tool("calculate_indicators")
 def calculate_indicators(symbol: str) -> str:
-    """
-    计算 MA5 MA10 RSI
-    """
+    """计算 MA5 MA10 RSI"""
+    df = fetch_stock_data_robust(symbol)
 
-    df = ak.stock_zh_a_hist(
-        symbol=symbol,
-        period="daily",
-        adjust="qfq"
-    )
+    if df.empty:
+        return "数据获取失败，无法计算技术指标。"
 
     close = df["收盘"]
 

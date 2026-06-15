@@ -6,17 +6,18 @@ import matplotlib.dates as mdates
 import seaborn as sns
 from crewai.tools import tool
 import os
+from tools.data_router import fetch_stock_data_robust
 
 
 @tool("generate_professional_chart")
 def generate_professional_chart(symbol: str) -> str:
-    """
-    获取股票最近的行情数据，并生成专业的高清多子图可视化图表，返回 Markdown 图片链接。
-    """
+    """获取数据生成图表"""
     try:
-        # 1. 获取数据
-        df = ak.stock_zh_a_hist(symbol=symbol, period="daily", adjust="qfq")
-        recent_df = df.tail(60).copy()  # 取最近60天让图表更丰满
+        df = fetch_stock_data_robust(symbol)
+        if df.empty:
+            return f"生成图表失败：无法获取股票 {symbol} 数据。"
+
+        recent_df = df.tail(60).copy()
         recent_df['日期'] = pd.to_datetime(recent_df['日期'])
         recent_df.set_index('日期', inplace=True)
 
