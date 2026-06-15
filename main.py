@@ -15,7 +15,23 @@ from agents.writer_agent import writer_agent
 
 
 def run(symbol):
+
+    analysis_task = create_analysis_task(symbol)
+
+    indicator_task = create_indicator_task(symbol)
+
+    risk_task = create_risk_task(symbol)
+
+    chart_task = create_chart_task(symbol)
+
+    report_task = create_report_task(
+        analysis_task,
+        indicator_task,
+        risk_task,
+        chart_task
+    )
     crew = Crew(
+
         agents=[
             analyst_agent,
             indicator_agent,
@@ -24,11 +40,11 @@ def run(symbol):
             writer_agent
         ],
         tasks=[
-            create_analysis_task(symbol),
-            create_indicator_task(symbol),
-            create_risk_task(),
-            create_chart_task(symbol),  # 让它在写报告之前生成图表
-            create_report_task()
+            analysis_task,
+            indicator_task,
+            risk_task,
+            chart_task,
+            report_task
         ],
         process=Process.sequential
     )

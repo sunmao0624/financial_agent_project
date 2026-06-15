@@ -2,20 +2,20 @@ from crewai import Task
 from agents.risk_agent import risk_agent
 
 
-def create_risk_task():
+def create_risk_task(symbol):
 
     return Task(
-        description="""
-        根据前面结果判断：
-
-        1. 风险等级
-
-        2. 是否超买
-
-        3. 是否存在回撤
+        description=f"""
+        分析股票 {symbol} 风险。
+        必须：
+        1. 使用 calculate_max_drawdown 工具
+        2. 使用 calculate_volatility 工具
+        3. 根据技术指标判断：
+           是否超买
+        4. 判断：
+           低风险 / 中风险 / 高风险
+        输出详细风险报告
         """,
-
-        expected_output="风险评估",
-
+        expected_output="完整风险评估",
         agent=risk_agent
     )
