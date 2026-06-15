@@ -1,6 +1,6 @@
 import json
 import akshare as ak
-from langchain.tools import tool
+from crewai.tools import tool
 
 
 @tool("get_stock_data")

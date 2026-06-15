@@ -1,6 +1,6 @@
 import akshare as ak
 import pandas as pd
-from langchain.tools import tool
+from crewai.tools import tool
 
 
 @tool("calculate_indicators")

@@ -7,6 +7,12 @@
           <option value="akshare" />
           <option value="crewai" />
           <option value="langchain" />
+          <option value="langchain-openai" />
+          <option value="langchain-community" />
+          <option value="chromadb" />
+          <option value="pdfplumber" />
+          <option value="pandas" />
+          <option value="numpy" />
         </list>
       </option>
     </inspection_tool>
